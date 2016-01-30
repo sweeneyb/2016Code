@@ -35,6 +35,8 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        RobotMap.init();
+        
     }
 	
 	/**
@@ -97,6 +99,9 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.INTAKE_AXIS));
+        RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
+        RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
     }
     
     /**
