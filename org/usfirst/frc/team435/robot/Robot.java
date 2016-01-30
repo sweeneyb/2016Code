@@ -1,12 +1,13 @@
 
 package org.usfirst.frc.team435.robot;
 
+import org.usfirst.frc.team435.robot.commands.ExampleCommand;
+import org.usfirst.frc.team435.robot.subsystems.ExampleSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team435.robot.commands.ExampleCommand;
-import org.usfirst.frc.team435.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -102,6 +103,7 @@ public class Robot extends IterativeRobot {
         RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.INTAKE_AXIS));
         RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
         RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
+        RobotMap.drive.arcadeDrive(oi.drivestick.getRawAxis(OI.DRIVEFORWARD_AXIS), oi.drivestick.getRawAxis(OI.TURN_AXIS));
     }
     
     /**
