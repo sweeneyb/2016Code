@@ -1,4 +1,8 @@
 package org.usfirst.frc.team435.robot;
+
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -15,4 +19,13 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
+	
+	public static final int LIFT_MOTOR = 0;
+	
+	public static SpeedController liftMotor;
+	
+	public static void init()
+	{
+		liftMotor = new Victor(LIFT_MOTOR);
+	}
 }
