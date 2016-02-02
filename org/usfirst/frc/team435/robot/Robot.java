@@ -103,6 +103,7 @@ public class Robot extends IterativeRobot {
         RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
         RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
         RobotMap.liftMotor.set(oi.smoStick.getRawAxis(OI.END_GAME));
+        RobotMap.liftMotorTwo.set(oi.smoStick.getRawAxis(OI.END_GAME));
     }
     
     /**
