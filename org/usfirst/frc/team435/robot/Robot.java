@@ -1,5 +1,7 @@
 
 package org.usfirst.frc.team435.robot;
+import org.usfirst.frc.team435.robot.subsystems.BoulderIntake;
+import org.usfirst.frc.team435.robot.subsystems.BoulderLift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,6 +18,8 @@ public class Robot extends IterativeRobot {
 
 	
 	public static OI oi;
+	public static BoulderLift boulderLift = new BoulderLift();
+	public static BoulderIntake boulderIntake = new BoulderIntake();
 
     //Command autonomousCommand;
     //SendableChooser chooser;

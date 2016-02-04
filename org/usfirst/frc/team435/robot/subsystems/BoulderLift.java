@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class BoulderLift extends Subsystem {
-    public void initDefaultCommand() {}
-    
-    public void bucketUp(double speed){
+	
+    public void initDefaultCommand() {
     	
     }
     
-    public void liftUp(double speed){
+    public void bucketDown(double speed){
+    	setBucket(Math.abs(speed));
+    }
+    
+    public void bucketUp(double speed){
     	setBucket(-Math.abs(speed));
     }
     
