@@ -3,10 +3,13 @@ package org.usfirst.frc.team435.robot;
 
 import org.usfirst.frc.team435.robot.commands.ExampleCommand;
 import org.usfirst.frc.team435.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team435.robot.subsystems.RobotLifter;
+import org.usfirst.frc.team435.robot.subsystems.Boulder;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +25,8 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
+	public static RobotLifter robotLifter = new RobotLifter();
+	public static Boulder boulder = new Boulder();
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -65,16 +70,16 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		 String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
 		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
+		/*	autonomousCommand = new MyAutoCommand();	*/
 			break;
 		case "Default Auto":
 		default:
 			autonomousCommand = new ExampleCommand();
 			break;
-		} */
+		} 
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
