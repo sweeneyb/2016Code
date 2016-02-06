@@ -67,11 +67,11 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
-    public void autonomousInit() {
-        //autonomousCommand = (Command) chooser.getSelected();
-        
-		 String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
+	public void autonomousInit() {
+		// autonomousCommand = (Command) chooser.getSelected();
+
+		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		switch (autoSelected) {
 		case "My Auto":
 			break;
 		case "Default Auto":
@@ -103,12 +103,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.INTAKE_AXIS));
-        RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
-        RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.LIFT_AXIS));
-        RobotMap.drive.arcadeDrive(oi.drivestick.getRawAxis(OI.DRIVEFORWARD_AXIS), oi.drivestick.getRawAxis(OI.TURN_AXIS));
-        RobotMap.liftMotor.set(oi.smoStick.getRawAxis(OI.END_GAME));
-        RobotMap.liftMotorTwo.set(oi.smoStick.getRawAxis(OI.END_GAME));
+        RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
+        RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+        RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+        RobotMap.drive.arcadeDrive(oi.drivestick.getY(), oi.drivestick.getX());
+        RobotMap.liftMotor.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
+        RobotMap.liftMotorTwo.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
     }
     
     /**
