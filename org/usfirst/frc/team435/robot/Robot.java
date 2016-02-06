@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	private static final double DEADBAND = 0;
 	public static DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
@@ -106,7 +107,7 @@ public class Robot extends IterativeRobot {
         RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
         RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
         RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
-        RobotMap.drive.arcadeDrive(oi.drivestick.getY(), oi.drivestick.getX());
+        RobotMap.drive.arcadeDrive(calc(oi.drivestick.getY()), calc(oi.drivestick.getX()));
         RobotMap.liftMotor.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
         RobotMap.liftMotorTwo.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
     }
@@ -117,4 +118,13 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+    
+    public static double calc(double value) {
+		if (Math.abs(value) < DEADBAND) {
+			return 0;
+		} else {
+			return (value - (Math.abs(value) / value * DEADBAND))
+					/ (1 - DEADBAND);
+		}
+	}
 }
