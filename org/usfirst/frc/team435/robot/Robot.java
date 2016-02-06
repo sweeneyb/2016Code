@@ -1,13 +1,13 @@
 
 package org.usfirst.frc.team435.robot;
+import org.usfirst.frc.team435.robot.subsystems.BoulderIntake;
+import org.usfirst.frc.team435.robot.subsystems.BoulderLift;
+import org.usfirst.frc.team435.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team435.robot.subsystems.RobotLifter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team435.robot.commands.ExampleCommand;
-import org.usfirst.frc.team435.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -18,12 +18,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
-    Command autonomousCommand;
-    SendableChooser chooser;
+	public static BoulderLift boulderLift = new BoulderLift();
+	public static BoulderIntake boulderIntake = new BoulderIntake();
+
+	public static RobotLifter robotLifter = new RobotLifter();
+
+
+    //Command autonomousCommand;
+    //SendableChooser chooser;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -31,10 +36,13 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-        chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
+//        chooser = new SendableChooser();
+//        chooser.addDefault("Default Auto", new ExampleCommand());
+//        chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
+//        SmartDashboard.putData("Auto mode", chooser);
+        RobotMap.init();
+        
     }
 	
 	/**
@@ -59,22 +67,20 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
-    public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-        
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
+	public void autonomousInit() {
+		// autonomousCommand = (Command) chooser.getSelected();
+
+		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		switch (autoSelected) {
 		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
 			break;
 		case "Default Auto":
 		default:
-			autonomousCommand = new ExampleCommand();
 			break;
-		} */
+		} 
     	
     	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        //if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -89,7 +95,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        //if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     /**
@@ -97,6 +103,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
+        RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+        RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+        RobotMap.drive.arcadeDrive(oi.drivestick.getY(), oi.drivestick.getX());
+        RobotMap.liftMotor.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
+        RobotMap.liftMotorTwo.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
     }
     
     /**
