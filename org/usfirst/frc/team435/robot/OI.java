@@ -1,6 +1,7 @@
 package org.usfirst.frc.team435.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -9,9 +10,12 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	public Joystick smoStick;
     public Joystick drivestick;
+    
+    public JoystickButton doubleSpeedButton;
 	
 
 	public static final int DRIVESTICK_PORT = 0;
+	public static final int DOUBLE_SPEED_ID = 0;
 	
     public static final int SMO_STICK_PORT = 1;
 	public static final int BOULDER_INTAKE_AXIS = 2;
@@ -24,6 +28,8 @@ public class OI {
 	public OI(){
     	drivestick = new Joystick(DRIVESTICK_PORT);
 		smoStick = new Joystick(SMO_STICK_PORT);
+		
+		doubleSpeedButton = new JoystickButton(drivestick, DOUBLE_SPEED_ID);
     }
 }
 
