@@ -1,5 +1,6 @@
 package org.usfirst.frc.team435.robot.automodes;
 
+import org.usfirst.frc.team435.robot.commands.BoulderEject;
 import org.usfirst.frc.team435.robot.commands.DriveFoward;
 import org.usfirst.frc.team435.robot.commands.TurnLeft;
 import org.usfirst.frc.team435.robot.commands.TurnRight;
@@ -17,5 +18,6 @@ public class ReachLowGoalMiddle extends CommandGroup {
         addSequential(new DriveFoward(1, 2));
         addSequential(new TurnLeft(1, 2));
         addSequential(new DriveFoward(1, 4));
+        addSequential(new BoulderEject(1, 3));
     }
 }
