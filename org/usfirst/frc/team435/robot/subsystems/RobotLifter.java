@@ -23,6 +23,7 @@ public class RobotLifter extends Subsystem {
 		liftMotor.set(speed);
 		liftMotorTwo.set(speed);
 	}
+
 	public void stay()
 	{
 		liftMotor.set(0);
