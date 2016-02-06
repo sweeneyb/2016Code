@@ -30,6 +30,7 @@ public class TurnRight extends Command {
 
     
     protected void end() {
+    	driveTrain.turnRight(0);
     }
 
     

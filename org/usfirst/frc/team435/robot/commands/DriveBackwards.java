@@ -30,6 +30,7 @@ public class DriveBackwards extends Command {
 
     
     protected void end() {
+    	driveTrain.driveBackward(0);
     }
 
     
