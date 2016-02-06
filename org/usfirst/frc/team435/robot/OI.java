@@ -10,13 +10,14 @@ public class OI {
 	public Joystick smoStick;
     public Joystick drivestick;
 	
-	public static final int SMO_STICK_PORT = 1;
-	public static final int INTAKE_AXIS = 0;
-	public static final int LIFT_AXIS = 1;
+
 	public static final int DRIVESTICK_PORT = 0;
-    public static final int DRIVEFORWARD_AXIS = 0;
-    public static final int TURN_AXIS = 1;
-	public static final int END_GAME = 2;
+	
+    public static final int SMO_STICK_PORT = 1;
+	public static final int BOULDER_INTAKE_AXIS = 2;
+	public static final int BUCKET_LIFT_AXIS = 5;
+	public static final int END_GAME_UP_AXIS = 3;
+	public static final int END_GAME_DOWN_AXIS = 3;
 	
 	
 	
