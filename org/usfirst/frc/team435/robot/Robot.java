@@ -27,6 +27,8 @@ public class Robot extends IterativeRobot {
 	public static BoulderIntake boulderIntake = new BoulderIntake();
 
 	public static RobotLifter robotLifter = new RobotLifter();
+	
+	RobotMap roboMap = new RobotMap();
 
 	// Command autonomousCommand;
 	// SendableChooser chooser;
@@ -43,6 +45,8 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", chooser);
 		RobotMap.init();
+		roboMap = new RobotMap();
+		roboMap.initInstance();
 
 	}
 
@@ -107,8 +111,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
-		RobotMap.leftBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
-		RobotMap.rightBucketMotor.set(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+		
+		roboMap.getBoulderLift().setBucketSpeed(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
 		if (oi.doubleSpeedButton.get())
 			RobotMap.drive.arcadeDrive(calc(oi.drivestick.getY()), calc(oi.drivestick.getX()));
 		else

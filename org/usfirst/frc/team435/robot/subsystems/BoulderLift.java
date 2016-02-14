@@ -1,8 +1,9 @@
 package org.usfirst.frc.team435.robot.subsystems;
 
-import static org.usfirst.frc.team435.robot.RobotMap.leftBucketMotor;
-import static org.usfirst.frc.team435.robot.RobotMap.rightBucketMotor;
+import org.usfirst.frc.team435.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,19 +11,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BoulderLift extends Subsystem {
 	
+	protected SpeedController leftBucketMotor;
+	protected SpeedController rightBucketMotor;
+	
+	public BoulderLift() {
+		super("BoulderLift");
+		leftBucketMotor = new CANTalon(RobotMap.LEFT_BUCKET_MOTOR);
+		rightBucketMotor = new CANTalon(RobotMap.RIGHT_BUCKET_MOTOR);
+	}
+	
     public void initDefaultCommand() {
     	
     }
-    
+        
     public void bucketDown(double speed){
-    	setBucket(Math.abs(speed));
+    	setBucketSpeed(Math.abs(speed));
     }
     
     public void bucketUp(double speed){
-    	setBucket(-Math.abs(speed));
+    	setBucketSpeed(-Math.abs(speed));
     }
     
-    private void setBucket(double speed){
+    public void setBucketSpeed(double speed){
     	leftBucketMotor.set(speed);
     	rightBucketMotor.set(speed);
     }
