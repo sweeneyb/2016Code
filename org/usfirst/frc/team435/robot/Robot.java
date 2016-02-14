@@ -126,7 +126,7 @@ public class Robot extends IterativeRobot {
 			RobotMap.drive.functionalArcadeDrive(oi.drivestick.getY(), oi.drivestick.getY(), deadband);
 		}
 		else{
-			RobotMap.drive.functionalArcadeDrive(oi.drivestick.getY(), oi.drivestick.getY(), d -> d / 2);
+			RobotMap.drive.functionalArcadeDrive(oi.drivestick.getY(), oi.drivestick.getY(), d -> deadband.apply(d) / 2);
 		}
 		lifter.setSpeed(oi, oi -> oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS)
 				- oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
