@@ -1,5 +1,7 @@
 package org.usfirst.frc.team435.robot.subsystems;
 
+import java.util.function.Function;
+
 import org.usfirst.frc.team435.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -36,5 +38,9 @@ public class BoulderLift extends Subsystem {
     	leftBucketMotor.set(speed);
     	rightBucketMotor.set(speed);
     }
+    
+//    public void setSpeed(Function<Integer, Integer> mapping) {
+//    	mapping.apply(t)
+//    }
 }
 

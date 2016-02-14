@@ -1,5 +1,6 @@
-
 package org.usfirst.frc.team435.robot;
+
+import java.util.function.Function;
 
 import org.usfirst.frc.team435.robot.subsystems.BoulderIntake;
 import org.usfirst.frc.team435.robot.subsystems.BoulderLift;
@@ -7,6 +8,7 @@ import org.usfirst.frc.team435.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team435.robot.subsystems.RobotLifter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +29,8 @@ public class Robot extends IterativeRobot {
 	public static BoulderIntake boulderIntake = new BoulderIntake();
 
 	public static RobotLifter robotLifter = new RobotLifter();
-	
+	protected MotorSet lifter;
+
 	RobotMap roboMap = new RobotMap();
 
 	// Command autonomousCommand;
@@ -47,6 +50,9 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
 		roboMap = new RobotMap();
 		roboMap.initInstance();
+		lifter = new MotorSet();
+		lifter.speedControllers.add(MotorManager.getMotorManager().getSpeedController(Victor.class, RobotMap.LIFT_MOTOR));
+		lifter.speedControllers.add(MotorManager.getMotorManager().getSpeedController(Victor.class, RobotMap.LIFT_MOTOR_TWO));
 
 	}
 
@@ -77,7 +83,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// autonomousCommand = (Command) chooser.getSelected();
 
-		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		String autoSelected = SmartDashboard.getString("Auto Selector",
+				"Default");
 		switch (autoSelected) {
 		case "My Auto":
 			break;
@@ -110,17 +117,19 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		RobotMap.intakeMotor.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
-		
-		roboMap.getBoulderLift().setBucketSpeed(oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
-		if (oi.doubleSpeedButton.get())
-			RobotMap.drive.arcadeDrive(calc(oi.drivestick.getY()), calc(oi.drivestick.getX()));
-		else
-			RobotMap.drive.arcadeDrive(calc(oi.drivestick.getY() / 2), calc(oi.drivestick.getX()) / 2);
-		RobotMap.liftMotor
-				.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
-		RobotMap.liftMotorTwo
-				.set(oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS) - oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
+		RobotMap.intakeMotor
+				.set(oi.smoStick.getRawAxis(OI.BOULDER_INTAKE_AXIS));
+
+		roboMap.getBoulderLift().setBucketSpeed(
+				oi.smoStick.getRawAxis(OI.BUCKET_LIFT_AXIS));
+		if (oi.doubleSpeedButton.get()){
+			RobotMap.drive.functionalArcadeDrive(oi.drivestick.getY(), oi.drivestick.getY(), deadband);
+		}
+		else{
+			RobotMap.drive.functionalArcadeDrive(oi.drivestick.getY(), oi.drivestick.getY(), d -> d / 2);
+		}
+		lifter.setSpeed(oi, oi -> oi.smoStick.getRawAxis(OI.END_GAME_UP_AXIS)
+				- oi.smoStick.getRawAxis(OI.END_GAME_DOWN_AXIS));
 	}
 
 	/**
@@ -130,11 +139,14 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 
-	public static double calc(double value) {
-		if (Math.abs(value) < DEADBAND) {
-			return 0;
-		} else {
-			return (value - (Math.abs(value) / value * DEADBAND)) / (1 - DEADBAND);
+	Function<Double, Double> deadband = new Function<Double, Double>() {
+		public Double apply(Double value) {
+			if (Math.abs(value) < DEADBAND) {
+				return 0D;
+			} else {
+				return (value - (Math.abs(value) / value * DEADBAND))
+						/ (1 - DEADBAND);
+			}
 		}
-	}
+	};
 }

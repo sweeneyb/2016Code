@@ -1,8 +1,6 @@
 package org.usfirst.frc.team435.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import static org.usfirst.frc.team435.robot.RobotMap.liftMotor;
-import static org.usfirst.frc.team435.robot.RobotMap.liftMotorTwo;
 
 
 
@@ -15,19 +13,19 @@ public class RobotLifter extends Subsystem {
     // here. Call these from Commands.
 	public void up(double speed)
 	{
-		liftMotor.set(speed);
-		liftMotorTwo.set(speed);
+//		liftMotor.set(speed);
+//		liftMotorTwo.set(speed);
 	}
 	public void down(double speed)
 	{
-		liftMotor.set(speed);
-		liftMotorTwo.set(speed);
+//		liftMotor.set(speed);
+//		liftMotorTwo.set(speed);
 	}
 
 	public void stay()
 	{
-		liftMotor.set(0);
-		liftMotorTwo.set(0);
+//		liftMotor.set(0);
+//		liftMotorTwo.set(0);
 	}
 
     public void initDefaultCommand() {

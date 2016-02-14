@@ -32,9 +32,7 @@ public class RobotMap {
 	public static SpeedController leftMotor;
 	public static SpeedController rightMotor;
 
-	public static RobotDrive drive;
-	public static SpeedController liftMotor;
-	public static SpeedController liftMotorTwo;
+	public static FunctionalRobotDrive drive;
 
 	public static void init() {
 		MotorManager mgr = MotorManager.getMotorManager();
@@ -44,9 +42,7 @@ public class RobotMap {
 		
 		leftMotor = new CANTalon(LEFT_MOTOR);
 		rightMotor = new CANTalon(RIGHT_MOTOR);
-		drive = new RobotDrive(leftMotor, rightMotor);
-		liftMotor = new Victor(LIFT_MOTOR);
-		liftMotorTwo = new Jaguar(LIFT_MOTOR_TWO);
+		drive = new FunctionalRobotDrive(leftMotor, rightMotor);
 	}
 	
 	
